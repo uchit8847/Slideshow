@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wish you a very Happy Birthday Jina!</title>
+    <title>Wish you a very Happy Birthday Jina..!</title>
     <style>
         body {
             text-align: center;
@@ -32,7 +32,7 @@
 <body>
 
     <h1>Enjoy your Special Day..!</h1>
-    <img id="slideshow" src="images/image1.jpg" alt="Slideshow">
+    <img id="slideshow" src="" alt="Slideshow">
 
     <audio autoplay loop>
         <source src="background.mp3" type="audio/mp3">
@@ -41,40 +41,41 @@
 
     <script>
         let images = [];
-        let folder = "images/";
-        let totalImages = 10; // Maximum number of images you expect
+        let folder = "Images/"; // Updated to match your folder name
+        let index = 0;
 
-        // Preload images dynamically
-        for (let i = 1; i <= totalImages; i++) {
-            let imgJPG = `${folder}image${i}.JPG`;
-            let imgjpg = `${folder}image${i}.jpg`;
-
+        // Function to check if an image exists before adding it to the array
+        function preloadImage(imgPath, callback) {
             let img = new Image();
-            img.src = imgJPG;
-            img.onload = () => images.push(imgJPG);
-
-            let imgLower = new Image();
-            imgLower.src = imgjpg;
-            imgLower.onload = () => images.push(imgjpg);
+            img.src = imgPath;
+            img.onload = () => callback(imgPath, true);
+            img.onerror = () => callback(imgPath, false);
         }
 
-        let index = 0;
-        function changeImage() {
-            if (images.length > 0) {
+        // Load images dynamically (Assuming max 20 images)
+        let maxImages = 20;
+        let loadedImages = 0;
+
+        for (let i = 1; i <= maxImages; i++) {
+            let imgPath = `${folder}image${i}.JPG`; // Assuming your images are in .JPG format
+            preloadImage(imgPath, (path, exists) => {
+                if (exists) {
+                    images.push(path);
+                }
+                loadedImages++;
+                if (loadedImages === maxImages && images.length > 0) {
+                    startSlideshow();
+                }
+            });
+        }
+
+        function startSlideshow() {
+            document.getElementById("slideshow").src = images[0];
+            setInterval(() => {
                 index = (index + 1) % images.length;
                 document.getElementById("slideshow").src = images[index];
-            }
+            }, 3000);
         }
-
-        // Start the slideshow after ensuring images are loaded
-        setTimeout(() => {
-            if (images.length > 0) {
-                document.getElementById("slideshow").src = images[0];
-                setInterval(changeImage, 3000);
-            } else {
-                console.error("No images loaded. Check file paths.");
-            }
-        }, 3000);
     </script>
 
 </body>
