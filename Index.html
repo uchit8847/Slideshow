@@ -19,55 +19,21 @@
 <body>
 
     <h1>My Slideshow</h1>
-    
-    <!-- Slideshow Image -->
-    <img id="slideshow" src="" alt="slideshow2">
+    <img id="slideshow" src="images/image1.jpg" alt="Slideshow">
 
-    <!-- Background Music -->
     <audio autoplay loop>
         <source src="background.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
     </audio>
 
     <script>
-        let images = [];
-
-        // Folder se images load karne ka function
-        async function fetchImages() {
-            try {
-                let response = await fetch("images/");
-                let text = await response.text();
-                
-                // Regular expression se images ko filter karna
-                let matches = text.match(/href="([^"]+\.(jpg|jpeg|png|gif))"/g);
-
-                if (matches) {
-                    images = matches.map(img => img.match(/href="([^"]+)"/)[1]);
-                }
-
-                // Agar images mil gayi to slideshow start karein
-                if (images.length > 0) {
-                    startSlideshow();
-                } else {
-                    document.getElementById("slideshow").alt = "No images found!";
-                }
-            } catch (error) {
-                console.error("Error fetching images:", error);
-            }
+        let images = ["image1.jpg", "image2.jpg", "image3.jpg"]; // Add more image names if needed
+        let index = 0;
+        function changeImage() {
+            index = (index + 1) % images.length;
+            document.getElementById("slideshow").src = "images/" + images[index];
         }
-
-        // Slideshow start karne ka function
-        function startSlideshow() {
-            let index = 0;
-            document.getElementById("slideshow2").src = "images/" + images[index];
-
-            setInterval(() => {
-                index = (index + 1) % images.length;
-                document.getElementById("slideshow2").src = "images/" + images[index];
-            }, 3000);
-        }
-
-        // Images fetch karne ka function call karein
-        fetchImages();
+        setInterval(changeImage, 3000); // Change image every 3 seconds
     </script>
 
 </body>
