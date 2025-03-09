@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wish you a very very Happy Birth Day Jina..!</title>
+    <title>Wish you a very Happy Birthday Jina!</title>
     <style>
         body {
             text-align: center;
@@ -24,15 +24,15 @@
         img {
             width: 100vw;
             height: 90vh;
-            object-fit: contain; /* Adjusts image within window */
+            object-fit: contain;
             margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
-    <h1>Enjoy your Specil Day..!</h1>
-    <img id="slideshow" src="" alt="Slideshow">
+    <h1>Enjoy your Special Day..!</h1>
+    <img id="slideshow" src="images/image1.jpg" alt="Slideshow">
 
     <audio autoplay loop>
         <source src="background.mp3" type="audio/mp3">
@@ -42,19 +42,20 @@
     <script>
         let images = [];
         let folder = "images/";
-        let totalImages = 10; // Approximate max number of images
+        let totalImages = 10; // Maximum number of images you expect
 
+        // Preload images dynamically
         for (let i = 1; i <= totalImages; i++) {
             let imgJPG = `${folder}image${i}.JPG`;
             let imgjpg = `${folder}image${i}.jpg`;
 
             let img = new Image();
             img.src = imgJPG;
-            img.onload = function () { images.push(imgJPG); };
+            img.onload = () => images.push(imgJPG);
 
             let imgLower = new Image();
             imgLower.src = imgjpg;
-            imgLower.onload = function () { images.push(imgjpg); };
+            imgLower.onload = () => images.push(imgjpg);
         }
 
         let index = 0;
@@ -65,15 +66,16 @@
             }
         }
 
-        // Start slideshow after images load
+        // Start the slideshow after ensuring images are loaded
         setTimeout(() => {
             if (images.length > 0) {
                 document.getElementById("slideshow").src = images[0];
                 setInterval(changeImage, 3000);
+            } else {
+                console.error("No images loaded. Check file paths.");
             }
-        }, 2000);
+        }, 3000);
     </script>
 
 </body>
 </html>
-
