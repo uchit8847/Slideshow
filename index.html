@@ -1,82 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wish you a very Happy Birthday Jina..!</title>
-    <style>
-        body {
-            text-align: center;
-            background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            font-size: 3em;
-            font-weight: bold;
-            text-transform: uppercase;
-            animation: blink 1s infinite alternate;
-        }
-        @keyframes blink {
-            0% { color: yellow; }
-            100% { color: white; }
-        }
-        img {
-            width: 100vw;
-            height: 90vh;
-            object-fit: contain;
-            margin-top: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Jina!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+    .slideshow-container {
+      max-width: 800px;
+      margin: 20px auto;
+      position: relative;
+    }
+    .mySlides {
+      display: none;
+    }
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .text {
+      font-size: 2em;
+      color: #ff6347;
+      animation: blink 1s infinite;
+    }
+    .small-text {
+      font-size: 1.2em;
+      color: #333;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  </style>
 </head>
 <body>
+  <h1 class="text">Wish you a very happy birthday Jina..!</h1>
+  <p class="small-text">Enjoy your special day..</p>
 
-    <h1>Wish you a very Happy Birthday Jina..!</h1>
-    <img id="slideshow" src="" alt="Slideshow">
+  <div class="slideshow-container">
+    <div class="mySlides">
+      <img src="Images/image1.jpg" alt="Slide 1">
+    </div>
+    <div class="mySlides">
+      <img src="Images/image2.jpg" alt="Slide 2">
+    </div>
+    <div class="mySlides">
+      <img src="Images/image3.jpg" alt="Slide 3">
+    </div>
+    <!-- Add more slides as needed -->
+  </div>
 
-    <audio autoplay loop>
-        <source src="background.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
+  <audio autoplay loop>
+    <source src="background.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
-    <script>
-        let images = [];
-        let folder = "Images/"; // Updated to match your folder name
-        let index = 0;
+  <script>
+    let slideIndex = 0;
+    showSlides();
 
-        // Function to check if an image exists before adding it to the array
-        function preloadImage(imgPath, callback) {
-            let img = new Image();
-            img.src = imgPath;
-            img.onload = () => callback(imgPath, true);
-            img.onerror = () => callback(imgPath, false);
-        }
-
-        // Load images dynamically (Assuming max 20 images)
-        let maxImages = 20;
-        let loadedImages = 0;
-
-        for (let i = 1; i <= maxImages; i++) {
-            let imgPath = `${folder}image${i}.JPG`; // Assuming your images are in .JPG format
-            preloadImage(imgPath, (path, exists) => {
-                if (exists) {
-                    images.push(path);
-                }
-                loadedImages++;
-                if (loadedImages === maxImages && images.length > 0) {
-                    startSlideshow();
-                }
-            });
-        }
-
-        function startSlideshow() {
-            document.getElementById("slideshow").src = images[0];
-            setInterval(() => {
-                index = (index + 1) % images.length;
-                document.getElementById("slideshow").src = images[index];
-            }, 3000);
-        }
-    </script>
-
+    function showSlides() {
+      let slides = document.getElementsByClassName("mySlides");
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) { slideIndex = 1; }
+      slides[slideIndex - 1].style.display = "block";
+      setTimeout(showSlides, 3000); // Change image every 3 seconds
+    }
+  </script>
 </body>
 </html>
