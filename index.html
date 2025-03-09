@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Birthday Wishes for Jina</title>
   <style>
-    /* General styles */
     body {
       font-family: Arial, sans-serif;
       text-align: center;
@@ -19,8 +18,6 @@
       justify-content: center;
       align-items: center;
     }
-
-    /* Form container */
     .form-container {
       background-color: #111; /* Slightly lighter black for the container */
       padding: 20px;
@@ -28,8 +25,6 @@
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Subtle white shadow */
       width: 300px;
     }
-
-    /* Input fields and button */
     input, textarea, button {
       width: 100%;
       padding: 10px;
@@ -38,67 +33,18 @@
       border-radius: 5px;
       font-size: 1em;
     }
-
     button {
       background-color: #ff6347; /* Tomato red */
       color: #fff;
       cursor: pointer;
     }
-
     button:hover {
       background-color: #ff4500; /* Darker red on hover */
-    }
-
-    /* Slideshow container (hidden by default) */
-    .slideshow-container {
-      display: none; /* Hidden initially */
-      max-width: 800px;
-      width: 100%;
-      margin: 20px auto;
-      position: relative;
-      background-color: #111; /* Slightly lighter black for the container */
-      padding: 10px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Subtle white shadow */
-    }
-
-    /* Hide all slides by default */
-    .mySlides {
-      display: none;
-    }
-
-    /* Make images responsive */
-    img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-    }
-
-    /* Blinking text */
-    .text {
-      font-size: 2em;
-      color: #ff6347; /* Keep the blinking text color */
-      animation: blink 1s infinite;
-    }
-
-    /* Small text */
-    .small-text {
-      font-size: 1.2em;
-      color: #ccc; /* Light gray for better readability */
-      font-family: 'Courier New', Courier, monospace;
-    }
-
-    /* Blink animation */
-    @keyframes blink {
-      0% { opacity: 1; }
-      50% { opacity: 0; }
-      100% { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <!-- Form Section -->
-  <div class="form-container" id="formSection">
+  <div class="form-container">
     <h1>Birthday Wishes for Jina</h1>
     <form id="wishForm">
       <input type="text" id="name" placeholder="Your Name" required>
@@ -106,30 +52,6 @@
       <button type="submit">Wish Now</button>
     </form>
   </div>
-
-  <!-- Slideshow Section (hidden initially) -->
-  <div class="slideshow-container" id="slideshowSection">
-    <h1 class="text">Happy Birthday Jina!</h1>
-    <p class="small-text" id="userWish"></p>
-
-    <!-- Slideshow images -->
-    <div class="mySlides">
-      <img src="Images/image1.JPG" alt="Slide 1" loading="lazy">
-    </div>
-    <div class="mySlides">
-      <img src="Images/image2.JPG" alt="Slide 2" loading="lazy">
-    </div>
-    <div class="mySlides">
-      <img src="Images/image3.JPG" alt="Slide 3" loading="lazy">
-    </div>
-    <!-- Add more slides as needed -->
-  </div>
-
-  <!-- Audio element -->
-  <audio id="background-audio" loop muted autoplay>
-    <source src="background.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
 
   <script>
     // Handle form submission
@@ -140,34 +62,13 @@
       const name = document.getElementById('name').value;
       const wish = document.getElementById('wish').value;
 
-      // Hide the form and show the slideshow
-      document.getElementById('formSection').style.display = 'none';
-      document.getElementById('slideshowSection').style.display = 'block';
+      // Store the wish in local storage
+      const wishes = JSON.parse(localStorage.getItem('wishes')) || [];
+      wishes.push({ name, wish });
+      localStorage.setItem('wishes', JSON.stringify(wishes));
 
-      // Display the user's name and wish
-      document.getElementById('userWish').innerText = `${name} says: ${wish}`;
-
-      // Unmute audio on user interaction
-      document.body.addEventListener('click', () => {
-        const audio = document.getElementById('background-audio');
-        audio.muted = false; // Unmute the audio
-        audio.play(); // Play the audio
-      });
-
-      // Start the slideshow
-      let slideIndex = 0;
-      showSlides();
-
-      function showSlides() {
-        let slides = document.getElementsByClassName("mySlides");
-        for (let i = 0; i < slides.length; i++) {
-          slides[i].style.display = "none"; // Hide all slides
-        }
-        slideIndex++;
-        if (slideIndex > slides.length) { slideIndex = 1; } // Reset to first slide
-        slides[slideIndex - 1].style.display = "block"; // Show current slide
-        setTimeout(showSlides, 3000); // Change image every 3 seconds
-      }
+      // Redirect to the slideshow page
+      window.location.href = `wish.html?name=${encodeURIComponent(name)}&wish=${encodeURIComponent(wish)}`;
     });
   </script>
 </body>

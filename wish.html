@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Jina!</title>
+  <style>
+    /* Dark black background */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #000; /* Dark black background */
+      color: #fff; /* White text for better contrast */
+      margin: 0;
+      padding: 0;
+      height: 100vh; /* Full viewport height */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Slideshow container */
+    .slideshow-container {
+      max-width: 800px;
+      width: 100%;
+      margin: 20px auto;
+      position: relative;
+      background-color: #111; /* Slightly lighter black for the container */
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Subtle white shadow */
+    }
+
+    /* Hide all slides by default */
+    .mySlides {
+      display: none;
+    }
+
+    /* Make images responsive */
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    /* Blinking text */
+    .text {
+      font-size: 2em;
+      color: #ff6347; /* Keep the blinking text color */
+      animation: blink 1s infinite;
+    }
+
+    /* Small text */
+    .small-text {
+      font-size: 1.2em;
+      color: #ccc; /* Light gray for better readability */
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    /* Blink animation */
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <h1 class="text">Happy Birthday Jina!</h1>
+  <p class="small-text" id="userWish"></p>
+
+  <!-- Slideshow container -->
+  <div class="slideshow-container">
+    <div class="mySlides">
+      <img src="Images/image1.JPG" alt="Slide 1" loading="lazy">
+    </div>
+    <div class="mySlides">
+      <img src="Images/image2.JPG" alt="Slide 2" loading="lazy">
+    </div>
+    <div class="mySlides">
+      <img src="Images/image3.JPG" alt="Slide 3" loading="lazy">
+    </div>
+    <!-- Add more slides as needed -->
+  </div>
+
+  <!-- Audio element -->
+  <audio id="background-audio" loop muted autoplay>
+    <source src="background.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    // Get query parameters from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get('name');
+    const wish = urlParams.get('wish');
+
+    // Display the user's name and wish
+    document.getElementById('userWish').innerText = `${name} says: ${wish}`;
+
+    // Unmute and play audio on page load
+    const audio = document.getElementById('background-audio');
+    audio.muted = false; // Unmute the audio
+    audio.play(); // Play the audio
+
+    // Slideshow logic
+    let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+      let slides = document.getElementsByClassName("mySlides");
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none"; // Hide all slides
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) { slideIndex = 1; } // Reset to first slide
+      slides[slideIndex - 1].style.display = "block"; // Show current slide
+      setTimeout(showSlides, 2000); // Change image every 2 seconds
+    }
+  </script>
+</body>
+</html>

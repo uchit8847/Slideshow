@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Wishes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #000; /* Dark black background */
+      color: #fff; /* White text for better contrast */
+      margin: 0;
+      padding: 0;
+      height: 100vh; /* Full viewport height */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .wishes-container {
+      background-color: #111; /* Slightly lighter black for the container */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Subtle white shadow */
+      width: 80%;
+      max-width: 800px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #222;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wishes-container">
+    <h1>All Wishes for Jina</h1>
+    <ul id="wishesList"></ul>
+  </div>
+
+  <script>
+    // Display all wishes
+    const wishes = JSON.parse(localStorage.getItem('wishes')) || [];
+    const wishesList = document.getElementById('wishesList');
+
+    wishes.forEach(wish => {
+      const li = document.createElement('li');
+      li.innerText = `${wish.name}: ${wish.wish}`;
+      wishesList.appendChild(li);
+    });
+  </script>
+</body>
+</html>
