@@ -8,7 +8,8 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      background-color: #f0f0f0;
+      background-color: #000; /* Dark black background */
+      color: #fff; /* White text for better contrast */
       margin: 0;
       padding: 0;
     }
@@ -16,6 +17,10 @@
       max-width: 800px;
       margin: 20px auto;
       position: relative;
+      background-color: #111; /* Slightly lighter black for the container */
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Subtle white shadow */
     }
     .mySlides {
       display: none;
@@ -26,24 +31,18 @@
     }
     .text {
       font-size: 2em;
-      color: #ff6347;
+      color: #ff6347; /* Keep the blinking text color */
       animation: blink 1s infinite;
     }
     .small-text {
       font-size: 1.2em;
-      color: #333;
+      color: #ccc; /* Light gray for better readability */
       font-family: 'Courier New', Courier, monospace;
     }
     @keyframes blink {
       0% { opacity: 1; }
       50% { opacity: 0; }
       100% { opacity: 1; }
-    }
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 1em;
-      cursor: pointer;
     }
   </style>
 </head>
@@ -53,21 +52,31 @@
 
   <div class="slideshow-container">
     <div class="mySlides">
-        <img src="Images/image1.JPG" alt="Slide 1">
-        <img src="Images/image2.JPG" alt="Slide 2">
-        <img src="Images/image3.JPG" alt="Slide 3">
+      <img src="Images/image1.JPG" alt="Slide 1" loading="lazy">
+    </div>
+    <div class="mySlides">
+      <img src="Images/image2.JPG" alt="Slide 2" loading="lazy">
+    </div>
+    <div class="mySlides">
+      <img src="Images/image3.JPG" alt="Slide 3" loading="lazy">
     </div>
     <!-- Add more slides as needed -->
   </div>
 
-  <audio id="background-audio" loop>
+  <audio id="background-audio" loop muted autoplay>
     <source src="background.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
-  <button onclick="playAudio()">Play Music</button>
-
   <script>
+    // Unmute audio on user interaction
+    document.body.addEventListener('click', () => {
+      const audio = document.getElementById('background-audio');
+      audio.muted = false;
+      audio.play();
+    });
+
+    // Slideshow logic
     let slideIndex = 0;
     showSlides();
 
@@ -80,10 +89,6 @@
       if (slideIndex > slides.length) { slideIndex = 1; }
       slides[slideIndex - 1].style.display = "block";
       setTimeout(showSlides, 3000); // Change image every 3 seconds
-    }
-
-    function playAudio() {
-      document.getElementById('background-audio').play();
     }
   </script>
 </body>
