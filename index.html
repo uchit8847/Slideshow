@@ -41,6 +41,9 @@
     button:hover {
       background-color: #ff4500; /* Darker red on hover */
     }
+    .skip-button {
+      background-color: #555; /* Gray for skip button */
+    }
   </style>
 </head>
 <body>
@@ -51,6 +54,7 @@
       <textarea id="wish" placeholder="Your Wish for Jina" rows="4" required></textarea>
       <button type="submit">Wish Now</button>
     </form>
+    <button class="skip-button" onclick="skipWish()">Skip</button>
   </div>
 
   <script>
@@ -62,9 +66,27 @@
       const name = document.getElementById('name').value;
       const wish = document.getElementById('wish').value;
 
+      // Store the wish in local storage
+      const wishes = JSON.parse(localStorage.getItem('wishes')) || [];
+      wishes.push({ name, wish });
+      localStorage.setItem('wishes', JSON.stringify(wishes));
+
       // Redirect to the slideshow page
       window.location.href = `wish.html?name=${encodeURIComponent(name)}&wish=${encodeURIComponent(wish)}`;
     });
+
+    // Handle skip button
+    function skipWish() {
+      const name = document.getElementById('name').value || 'Anonymous'; // Use "Anonymous" if no name is entered
+      
+      // Store the skipped user in local storage
+      const skippedUsers = JSON.parse(localStorage.getItem('skippedUsers')) || [];
+      skippedUsers.push({ name, skipped: true });
+      localStorage.setItem('skippedUsers', JSON.stringify(skippedUsers));
+
+      // Redirect to the slideshow page without a wish
+      window.location.href = `wish.html?name=${encodeURIComponent(name)}&wish=`;
+    }
   </script>
 </body>
 </html>

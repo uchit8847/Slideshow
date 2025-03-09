@@ -40,8 +40,11 @@
 </head>
 <body>
   <div class="wishes-container">
-    <h1>All Wishes for Jina</h1>
+    <h1>All Wishes and Skipped Users</h1>
+    <h2>Wishes</h2>
     <ul id="wishesList"></ul>
+    <h2>Skipped Users</h2>
+    <ul id="skippedUsersList"></ul>
   </div>
 
   <script>
@@ -56,6 +59,20 @@
         const li = document.createElement('li');
         li.innerText = `${wish.name}: ${wish.wish}`;
         wishesList.appendChild(li);
+      });
+    }
+
+    // Display all skipped users
+    const skippedUsers = JSON.parse(localStorage.getItem('skippedUsers')) || [];
+    const skippedUsersList = document.getElementById('skippedUsersList');
+
+    if (skippedUsers.length === 0) {
+      skippedUsersList.innerHTML = "<li>No skipped users yet.</li>";
+    } else {
+      skippedUsers.forEach(user => {
+        const li = document.createElement('li');
+        li.innerText = `${user.name} skipped the wish.`;
+        skippedUsersList.appendChild(li);
       });
     }
   </script>
