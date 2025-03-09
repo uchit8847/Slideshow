@@ -3,23 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Slideshow</title>
+    <title>Wish you a very very Happy Birth Day Jina..!</title>
     <style>
         body {
             text-align: center;
             background-color: black;
             color: white;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            font-size: 3em;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: blink 1s infinite alternate;
+        }
+        @keyframes blink {
+            0% { color: yellow; }
+            100% { color: white; }
         }
         img {
-            width: 80%;
-            height: auto;
+            width: 100vw;
+            height: 90vh;
+            object-fit: contain; /* Adjusts image within window */
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
-    <h1>My Slideshow</h1>
-    <img id="slideshow" src="images/image1.jpg" alt="Slideshow">
+    <h1>Enjoy your Specil Day..!</h1>
+    <img id="slideshow" src="" alt="Slideshow">
 
     <audio autoplay loop>
         <source src="background.mp3" type="audio/mp3">
@@ -27,13 +40,38 @@
     </audio>
 
     <script>
-        let images = ["image1.jpg", "image2.jpg", "image3.jpg"]; // Add more image names if needed
+        let images = [];
+        let folder = "images/";
+        let totalImages = 10; // Approximate max number of images
+
+        for (let i = 1; i <= totalImages; i++) {
+            let imgJPG = `${folder}image${i}.JPG`;
+            let imgjpg = `${folder}image${i}.jpg`;
+
+            let img = new Image();
+            img.src = imgJPG;
+            img.onload = function () { images.push(imgJPG); };
+
+            let imgLower = new Image();
+            imgLower.src = imgjpg;
+            imgLower.onload = function () { images.push(imgjpg); };
+        }
+
         let index = 0;
         function changeImage() {
-            index = (index + 1) % images.length;
-            document.getElementById("slideshow").src = "images/" + images[index];
+            if (images.length > 0) {
+                index = (index + 1) % images.length;
+                document.getElementById("slideshow").src = images[index];
+            }
         }
-        setInterval(changeImage, 3000); // Change image every 3 seconds
+
+        // Start slideshow after images load
+        setTimeout(() => {
+            if (images.length > 0) {
+                document.getElementById("slideshow").src = images[0];
+                setInterval(changeImage, 3000);
+            }
+        }, 2000);
     </script>
 
 </body>
