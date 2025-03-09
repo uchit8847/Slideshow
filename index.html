@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday Jina!</title>
+  <title>Birthday Wishes for Jina</title>
   <style>
-    /* Dark black background */
+    /* General styles */
     body {
       font-family: Arial, sans-serif;
       text-align: center;
@@ -20,8 +20,38 @@
       align-items: center;
     }
 
-    /* Slideshow container */
+    /* Form container */
+    .form-container {
+      background-color: #111; /* Slightly lighter black for the container */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Subtle white shadow */
+      width: 300px;
+    }
+
+    /* Input fields and button */
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    button {
+      background-color: #ff6347; /* Tomato red */
+      color: #fff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff4500; /* Darker red on hover */
+    }
+
+    /* Slideshow container (hidden by default) */
     .slideshow-container {
+      display: none; /* Hidden initially */
       max-width: 800px;
       width: 100%;
       margin: 20px auto;
@@ -67,11 +97,22 @@
   </style>
 </head>
 <body>
-  <h1 class="text">Wish you a very Happy Birthday Jina..!</h1>
-  <p class="small-text">Enjoy your special day..</p>
+  <!-- Form Section -->
+  <div class="form-container" id="formSection">
+    <h1>Birthday Wishes for Jina</h1>
+    <form id="wishForm">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <textarea id="wish" placeholder="Your Wish for Jina" rows="4" required></textarea>
+      <button type="submit">Wish Now</button>
+    </form>
+  </div>
 
-  <!-- Slideshow container -->
-  <div class="slideshow-container">
+  <!-- Slideshow Section (hidden initially) -->
+  <div class="slideshow-container" id="slideshowSection">
+    <h1 class="text">Happy Birthday Jina!</h1>
+    <p class="small-text" id="userWish"></p>
+
+    <!-- Slideshow images -->
     <div class="mySlides">
       <img src="Images/image1.JPG" alt="Slide 1" loading="lazy">
     </div>
@@ -91,27 +132,43 @@
   </audio>
 
   <script>
-    // Unmute audio on user interaction
-    document.body.addEventListener('click', () => {
-      const audio = document.getElementById('background-audio');
-      audio.muted = false;
-      audio.play();
-    });
+    // Handle form submission
+    document.getElementById('wishForm').addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent default form submission
 
-    // Slideshow logic
-    let slideIndex = 0;
-    showSlides();
+      // Get user input
+      const name = document.getElementById('name').value;
+      const wish = document.getElementById('wish').value;
 
-    function showSlides() {
-      let slides = document.getElementsByClassName("mySlides");
-      for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none"; // Hide all slides
+      // Hide the form and show the slideshow
+      document.getElementById('formSection').style.display = 'none';
+      document.getElementById('slideshowSection').style.display = 'block';
+
+      // Display the user's name and wish
+      document.getElementById('userWish').innerText = `${name} says: ${wish}`;
+
+      // Unmute audio on user interaction
+      document.body.addEventListener('click', () => {
+        const audio = document.getElementById('background-audio');
+        audio.muted = false; // Unmute the audio
+        audio.play(); // Play the audio
+      });
+
+      // Start the slideshow
+      let slideIndex = 0;
+      showSlides();
+
+      function showSlides() {
+        let slides = document.getElementsByClassName("mySlides");
+        for (let i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none"; // Hide all slides
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1; } // Reset to first slide
+        slides[slideIndex - 1].style.display = "block"; // Show current slide
+        setTimeout(showSlides, 3000); // Change image every 3 seconds
       }
-      slideIndex++;
-      if (slideIndex > slides.length) { slideIndex = 1; } // Reset to first slide
-      slides[slideIndex - 1].style.display = "block"; // Show current slide
-      setTimeout(showSlides, 3000); // Change image every 3 seconds
-    }
+    });
   </script>
 </body>
 </html>
