@@ -49,11 +49,15 @@
     const wishes = JSON.parse(localStorage.getItem('wishes')) || [];
     const wishesList = document.getElementById('wishesList');
 
-    wishes.forEach(wish => {
-      const li = document.createElement('li');
-      li.innerText = `${wish.name}: ${wish.wish}`;
-      wishesList.appendChild(li);
-    });
+    if (wishes.length === 0) {
+      wishesList.innerHTML = "<li>No wishes yet.</li>";
+    } else {
+      wishes.forEach(wish => {
+        const li = document.createElement('li');
+        li.innerText = `${wish.name}: ${wish.wish}`;
+        wishesList.appendChild(li);
+      });
+    }
   </script>
 </body>
 </html>
