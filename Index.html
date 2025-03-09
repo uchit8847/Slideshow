@@ -21,7 +21,7 @@
     <h1>Wish you a very happy Birth Day Jina</h1>
     <p>Enjoy your beautiful day..!</p>
 
-    <img id="slideshow" src="images/image1.jpg" alt="Slideshow">
+    <img id="slideshow2" src="images/image1.jpg" alt="Slideshow2">
 
     <audio autoplay loop>
         <source src="background.mp3" type="audio/mp3">
@@ -39,10 +39,10 @@
 
         function changeImage() {
             index = (index + 1) % images.length;
-            document.getElementById("slideshow").src = images[index];
+            document.getElementById("slideshow2").src = images[index];
         }
 
-        setInterval(changeImage, 1000); // Change image every 3 seconds
+        setInterval(changeImage, 1000); // Change image every 1 seconds
     </script>
 
 </body>
