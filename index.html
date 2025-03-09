@@ -39,6 +39,12 @@
       50% { opacity: 0; }
       100% { opacity: 1; }
     }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -58,10 +64,12 @@
     <!-- Add more slides as needed -->
   </div>
 
-  <audio autoplay loop>
+  <audio id="background-audio" loop>
     <source src="background.mp3" type="audio/mp3">
     Your browser does not support the audio element.
   </audio>
+
+  <button onclick="playAudio()">Play Music</button>
 
   <script>
     let slideIndex = 0;
@@ -76,6 +84,10 @@
       if (slideIndex > slides.length) { slideIndex = 1; }
       slides[slideIndex - 1].style.display = "block";
       setTimeout(showSlides, 3000); // Change image every 3 seconds
+    }
+
+    function playAudio() {
+      document.getElementById('background-audio').play();
     }
   </script>
 </body>
