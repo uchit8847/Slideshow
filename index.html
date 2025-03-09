@@ -62,11 +62,6 @@
       const name = document.getElementById('name').value;
       const wish = document.getElementById('wish').value;
 
-      // Store the wish in local storage
-      const wishes = JSON.parse(localStorage.getItem('wishes')) || [];
-      wishes.push({ name, wish });
-      localStorage.setItem('wishes', JSON.stringify(wishes));
-
       // Redirect to the slideshow page
       window.location.href = `wish.html?name=${encodeURIComponent(name)}&wish=${encodeURIComponent(wish)}`;
     });

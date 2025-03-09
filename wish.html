@@ -99,10 +99,12 @@
     // Display the user's name and wish
     document.getElementById('userWish').innerText = `${name} says: ${wish}`;
 
-    // Unmute and play audio on page load
+    // Unmute and play audio after a short delay
     const audio = document.getElementById('background-audio');
-    audio.muted = false; // Unmute the audio
-    audio.play(); // Play the audio
+    setTimeout(() => {
+      audio.muted = false; // Unmute the audio
+      audio.play(); // Play the audio
+    }, 1000); // 1-second delay to ensure autoplay works
 
     // Slideshow logic
     let slideIndex = 0;
