@@ -97,10 +97,8 @@
     const wish = urlParams.get('wish');
 
     // Display the user's name and wish (if available)
-    if (name && wish) {
+    if (name && wish && wish !== 'skip') {
       document.getElementById('userWish').innerText = `${name} says: ${wish}`;
-    } else if (name) {
-      document.getElementById('userWish').innerText = `${name} skipped the wish.`;
     }
 
     // Unmute and play audio after a short delay
