@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birth Day Jina! Enjoy your special day.</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: black;
+            color: white;
+        }
+        img {
+            width: 80%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Wish you a very happy Birth Day Jina</h1>
+    <p>Enjoy the beautiful day..!</p>
+
+    <img id="slideshow" src="images/image1.jpg" alt="Slideshow">
+
+    <audio autoplay loop>
+        <source src="background.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        let images = [];
+        let index = 0;
+
+        // Auto-load all images from images folder
+        for (let i = 1; i <= 10; i++) {
+            images.push(`images/image${i}.jpg`);
+        }
+
+        function changeImage() {
+            index = (index + 1) % images.length;
+            document.getElementById("slideshow").src = images[index];
+        }
+
+        setInterval(changeImage, 3000); // Change image every 3 seconds
+    </script>
+
+</body>
+</html>
